@@ -2,8 +2,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { HtmlHTMLAttributes, useState } from "react";
-import Car from "../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { addCar } from "../api/carapi";
+import { Car } from "../types";
 
 function AddCar() {
   const [open, setOpen] = useState<boolean>(false);
@@ -15,10 +17,31 @@ function AddCar() {
     modelYear: 0,
     price: 0,
   });
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(addCar, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cars"]);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+  const handleSave = () => {
+    mutate(car);
+    setCar({
+      brand: "",
+      model: "",
+      color: "",
+      registrationNumber: "",
+      modelYear: 0,
+      price: 0,
+    });
+    handleClose();
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleClickClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +49,7 @@ function AddCar() {
   };
   return (
     <>
-      <button onClick={handleClickOpen}></button>
+      <button onClick={handleClickOpen}>New car</button>
       <Dialog open={open}>
         <DialogTitle>New car</DialogTitle>
         <DialogContent>
@@ -68,8 +91,8 @@ function AddCar() {
           />
         </DialogContent>
         <DialogActions>
-          <button onClick={handleClickClose}></button>
-          <button onClick={handleClickClose}></button>
+          <button onClick={handleSave}>save</button>
+          <button onClick={handleClose}>cancel</button>
         </DialogActions>
       </Dialog>
     </>

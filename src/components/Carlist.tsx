@@ -3,6 +3,7 @@ import { getCars, deleteCar } from "../api/carapi";
 import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
+import AddCar from "./AddCar";
 
 function Carlist() {
   const [open, setOpen] = useState<boolean>(false);
@@ -58,6 +59,7 @@ function Carlist() {
   } else {
     return (
       <>
+        <AddCar />
         <DataGrid
           rows={data}
           columns={column}

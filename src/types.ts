@@ -22,6 +22,6 @@ export type Car = {
     model: string;
     color: string;
     registrationNumber: string;
-    modelYear: string;
+    modelYear: number;
     price: number;
 }
