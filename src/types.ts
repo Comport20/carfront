@@ -17,3 +17,11 @@ export type CarResponse = {
         },
     }
 }
+export type Car = {
+    brand: string;
+    model: string;
+    color: string;
+    registrationNumber: string;
+    modelYear: string;
+    price: number;
+}
