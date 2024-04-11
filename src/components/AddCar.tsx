@@ -6,6 +6,7 @@ import { useState } from "react";
 import { addCar } from "../api/carapi";
 import { Car } from "../types";
 import CarDialogContent from "./CarDialogContent";
+import { Button } from "@mui/material";
 
 function AddCar() {
   const [open, setOpen] = useState<boolean>(false);
@@ -49,13 +50,13 @@ function AddCar() {
   };
   return (
     <>
-      <button onClick={handleClickOpen}>New car</button>
+      <Button onClick={handleClickOpen}>Add car</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New car</DialogTitle>
         <CarDialogContent car={car} handleChange={handleChange} />
         <DialogActions>
-          <button onClick={handleSave}>save</button>
-          <button onClick={handleClose}>cancel</button>
+          <Button onClick={handleSave}>save</Button>
+          <Button onClick={handleClose}>cancel</Button>
         </DialogActions>
       </Dialog>
     </>
