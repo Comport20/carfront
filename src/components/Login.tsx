@@ -35,10 +35,14 @@ function Login() {
       })
       .catch(() => setOpen(true));
   };
+  const handleLogout = () => {
+    setAuth(false);
+    sessionStorage.setItem("jwt", "");
+  };
   return (
     <>
       {isAuthenticated ? (
-        <Carlist />
+        <Carlist logOut={handleLogout} />
       ) : (
         <Stack spacing={2} alignItems="center" mt={2}>
           <TextField name="username" label="Username" onChange={handleChange} />
